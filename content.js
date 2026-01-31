@@ -906,15 +906,29 @@
       existingToast.remove();
     }
 
+    // 根据类型设置样式
+    const isError = type === "error";
+    const bgColor = isError ? "#d32f2f" : "#4CAF50";
+    const icon = isError ? "✗" : "✓";
+    const title = isError ? "提取失败" : "提取成功";
+
     const toast = document.createElement("div");
     toast.id = "yt-subtitle-toast";
-    toast.innerHTML = message;
+    toast.innerHTML = `
+      <div style="display: flex; align-items: flex-start; gap: 12px;">
+        <span style="font-size: 20px; line-height: 1;">${icon}</span>
+        <div>
+          <div style="font-weight: bold; margin-bottom: 4px;">${title}</div>
+          <div style="opacity: 0.95;">${message}</div>
+        </div>
+      </div>
+    `;
     toast.style.cssText = `
       position: fixed;
       top: 20px;
       right: 20px;
-      padding: 16px 24px;
-      background: ${type === "success" ? "#4CAF50" : "#f44336"};
+      padding: 16px 20px;
+      background: ${bgColor};
       color: white;
       border-radius: 8px;
       font-size: 14px;
@@ -922,23 +936,32 @@
       z-index: 999999;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       animation: slideIn 0.3s ease;
+      max-width: 350px;
+      line-height: 1.4;
     `;
 
-    const style = document.createElement("style");
-    style.textContent = `
-      @keyframes slideIn {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-      }
-    `;
-    document.head.appendChild(style);
+    // 只添加一次动画样式
+    if (!document.querySelector("#yt-subtitle-toast-style")) {
+      const style = document.createElement("style");
+      style.id = "yt-subtitle-toast-style";
+      style.textContent = `
+        @keyframes slideIn {
+          from { transform: translateX(100%); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+      `;
+      document.head.appendChild(style);
+    }
 
     document.body.appendChild(toast);
+
+    // 错误提示显示更长时间
+    const duration = isError ? 5000 : 3000;
 
     setTimeout(() => {
       toast.style.animation = "slideIn 0.3s ease reverse";
       setTimeout(() => toast.remove(), 300);
-    }, 3000);
+    }, duration);
   }
 
   /**
@@ -988,10 +1011,10 @@
       }
 
       // 构建提示信息
-      const messages = [`✓ 成功提取 ${result.count} 条字幕`];
-      messages.push(hasTimestamp ? "✓ 已复制到剪切板（含时间戳）" : "✓ 已复制到剪切板");
+      const messages = [`共 ${result.count} 条字幕`];
+      messages.push(hasTimestamp ? "已复制到剪切板（含时间戳）" : "已复制到剪切板");
       if (downloadSuccess) {
-        messages.push(`✓ ${downloadFormat} 文件已下载`);
+        messages.push(`${downloadFormat} 文件已下载`);
       }
 
       showToast(messages.join("<br>"), "success");
@@ -1000,7 +1023,18 @@
 
     } catch (error) {
       console.error("字幕提取失败:", error);
-      showToast(`✗ 提取失败: ${error.message}`, "error");
+
+      // 构建详细的错误信息
+      let errorMessage = error.message;
+      if (errorMessage.includes("所有方法都失败")) {
+        errorMessage = "无法获取字幕，可能原因：<br>• 视频没有字幕<br>• 字幕被禁用<br>• 网络问题";
+      } else if (errorMessage.includes("视频 ID")) {
+        errorMessage = "请确保在 YouTube 视频页面";
+      } else if (errorMessage.includes("没有可用字幕")) {
+        errorMessage = "该视频没有可用的字幕";
+      }
+
+      showToast(errorMessage, "error");
       throw error;
     }
   }
