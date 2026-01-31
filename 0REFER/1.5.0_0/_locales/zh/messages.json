@@ -1,0 +1,30 @@
+{
+   "copyTranscript": {
+      "description": "Text shown in the extension button",
+      "message": "复制字幕"
+   },
+   "extensionDescription": {
+      "description": "Description of the extension",
+      "message": "一键复制 YouTube 视频字幕。"
+   },
+   "extensionName": {
+      "description": "The name of the extension",
+      "message": "复制 YouTube 字幕"
+   },
+   "noVideoId": {
+      "description": "Error message when no video ID is found",
+      "message": "未找到视频 ID"
+   },
+   "transcriptCopied": {
+      "description": "Success message when transcript is copied",
+      "message": "字幕已复制"
+   },
+   "transcriptError": {
+      "description": "Error message when transcript cannot be fetched",
+      "message": "字幕错误"
+   },
+   "untitled": {
+      "description": "Default title when video title cannot be found",
+      "message": "无标题"
+   }
+}

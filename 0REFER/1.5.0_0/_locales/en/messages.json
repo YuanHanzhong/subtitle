@@ -1,0 +1,464 @@
+{
+   "activate": {
+      "description": "Activate license button",
+      "message": "Activate"
+   },
+   "activated": {
+      "description": "License activated message",
+      "message": "Activated!"
+   },
+   "addAiPrompt": {
+      "description": "Checkbox label for AI prompt",
+      "message": "Add AI Summary Prompt"
+   },
+   "addSpacing": {
+      "description": "Checkbox label for spacing",
+      "message": "Add spacing between lines"
+   },
+   "aiSidePanelChat": {
+      "description": "Pro feature",
+      "message": "AI Side Panel Chat"
+   },
+   "aiSummary": {
+      "description": "AI Summary button text",
+      "message": "AI Summary"
+   },
+   "askAnything": {
+      "description": "Message input placeholder",
+      "message": "Ask anything..."
+   },
+   "autoOpenAi": {
+      "description": "Settings checkbox",
+      "message": "Auto-open AI Platforms"
+   },
+   "back": {
+      "description": "Back button",
+      "message": "Back"
+   },
+   "blogOutline": {
+      "description": "Creator mode option",
+      "message": "Blog outline"
+   },
+   "buttonLabel": {
+      "description": "Custom command label input",
+      "message": "Button Label"
+   },
+   "cancel": {
+      "description": "Cancel button",
+      "message": "Cancel"
+   },
+   "chapters": {
+      "description": "Creator mode option",
+      "message": "Chapters"
+   },
+   "chat": {
+      "description": "Chat button in history",
+      "message": "Chat"
+   },
+   "chatHistory": {
+      "description": "Chat history panel title",
+      "message": "Chat History"
+   },
+   "citedSummary": {
+      "description": "Research mode option",
+      "message": "Cited summary"
+   },
+   "clearAll": {
+      "description": "Clear all history button",
+      "message": "Clear All"
+   },
+   "close": {
+      "description": "Close button",
+      "message": "Close"
+   },
+   "copied": {
+      "description": "In-page button success state",
+      "message": "Copied!"
+   },
+   "copyToClipboard": {
+      "description": "Main copy button text",
+      "message": "Copy to Clipboard"
+   },
+   "copyTranscript": {
+      "description": "Text shown in the extension button",
+      "message": "Copy Transcript"
+   },
+   "copying": {
+      "description": "In-page button loading state",
+      "message": "Copying..."
+   },
+   "creatorMode": {
+      "description": "Sidepanel template group",
+      "message": "Creator Mode"
+   },
+   "currentSettings": {
+      "description": "Default preset name",
+      "message": "Current Settings"
+   },
+   "customCommand": {
+      "description": "Custom command button",
+      "message": "Custom command"
+   },
+   "delete": {
+      "description": "Delete button",
+      "message": "Delete"
+   },
+   "describeFeedback": {
+      "description": "Feedback textarea placeholder",
+      "message": "Describe the bug or your idea..."
+   },
+   "edit": {
+      "description": "Edit button text",
+      "message": "Edit"
+   },
+   "eli5": {
+      "description": "Study mode option - Explain Like I'm 5",
+      "message": "ELI5"
+   },
+   "enterLicenseKey": {
+      "description": "License key modal title",
+      "message": "Enter License Key"
+   },
+   "enterPresetName": {
+      "description": "Preset name input placeholder",
+      "message": "Enter preset name..."
+   },
+   "error": {
+      "description": "Error state",
+      "message": "Error"
+   },
+   "export": {
+      "description": "Export button text",
+      "message": "Export"
+   },
+   "exportFormat": {
+      "description": "Export format section title",
+      "message": "Export Format:"
+   },
+   "extensionDescription": {
+      "description": "Description of the extension",
+      "message": "Copy YouTube video transcripts with one click."
+   },
+   "extensionName": {
+      "description": "The name of the extension",
+      "message": "Copy Youtube Transcript"
+   },
+   "extractQuotes": {
+      "description": "Sidepanel action button",
+      "message": "Extract quotes"
+   },
+   "flashcards": {
+      "description": "Study mode option",
+      "message": "Flashcards"
+   },
+   "freeChatsRemaining": {
+      "description": "Free usage counter",
+      "message": "$COUNT$ free chats remaining",
+      "placeholders": {
+         "count": {
+            "content": "$1",
+            "example": "5"
+         }
+      }
+   },
+   "freeLimitDescription": {
+      "description": "Usage limit modal description",
+      "message": "You've used all your free AI chats. Upgrade to Pro for unlimited access."
+   },
+   "freeLimitReached": {
+      "description": "Usage limit modal title",
+      "message": "Free Limit Reached"
+   },
+   "haveLicenseKey": {
+      "description": "License key link",
+      "message": "I have a license key"
+   },
+   "hide": {
+      "description": "Hide history button",
+      "message": "Hide"
+   },
+   "historyDescription": {
+      "description": "Empty history description",
+      "message": "Copy a transcript to see it here. Your history is stored locally on this device."
+   },
+   "keyTakeaways": {
+      "description": "Sidepanel action button",
+      "message": "Key takeaways"
+   },
+   "later": {
+      "description": "Dismiss upgrade button",
+      "message": "Later"
+   },
+   "listClaims": {
+      "description": "Research mode option",
+      "message": "List claims"
+   },
+   "livePreview": {
+      "description": "Live preview section title",
+      "message": "Live Preview"
+   },
+   "loading": {
+      "description": "Loading state",
+      "message": "Loading..."
+   },
+   "manage": {
+      "description": "Manage presets button",
+      "message": "Manage"
+   },
+   "managePresets": {
+      "description": "Manage presets dialog title",
+      "message": "Manage Presets"
+   },
+   "markdown": {
+      "description": "Markdown export option",
+      "message": "Markdown"
+   },
+   "monthly": {
+      "description": "Pricing toggle",
+      "message": "Monthly"
+   },
+   "mostRecentTranscript": {
+      "description": "History section title",
+      "message": "Most Recent Transcript"
+   },
+   "noFreeChatsRemaining": {
+      "description": "Free usage exhausted",
+      "message": "No free chats remaining"
+   },
+   "noHistoryYet": {
+      "description": "Empty history title",
+      "message": "No History Yet"
+   },
+   "noVideoId": {
+      "description": "Error message when no video ID is found",
+      "message": "No video ID found"
+   },
+   "openQuestions": {
+      "description": "Research mode option",
+      "message": "Open questions"
+   },
+   "openVideo": {
+      "description": "Open video button",
+      "message": "Open Video"
+   },
+   "openVideoToStart": {
+      "description": "Sidepanel empty state",
+      "message": "Open a YouTube video to start chatting"
+   },
+   "openingCheckout": {
+      "description": "Checkout loading state",
+      "message": "Opening checkout..."
+   },
+   "outputFormat": {
+      "description": "Output format section title",
+      "message": "Output Format"
+   },
+   "paragraphStyle": {
+      "description": "Checkbox label for paragraph style",
+      "message": "Paragraph style (single block)"
+   },
+   "pasteLicenseKey": {
+      "description": "License key instruction",
+      "message": "Paste your license key below to activate Pro features."
+   },
+   "pdf": {
+      "description": "PDF export option",
+      "message": "PDF"
+   },
+   "pdfMarkdownExport": {
+      "description": "Pro feature",
+      "message": "PDF & Markdown Export"
+   },
+   "perMonth": {
+      "description": "Price period",
+      "message": "/ month"
+   },
+   "perYear": {
+      "description": "Price period",
+      "message": "/ year"
+   },
+   "platform": {
+      "description": "AI platform selector label",
+      "message": "Platform:"
+   },
+   "preset": {
+      "description": "Preset label",
+      "message": "Preset"
+   },
+   "pro": {
+      "description": "Pro badge text",
+      "message": "PRO"
+   },
+   "proFeature": {
+      "description": "Upgrade modal title",
+      "message": "Pro Feature"
+   },
+   "prompt": {
+      "description": "Custom command prompt input",
+      "message": "Prompt"
+   },
+   "quizMe": {
+      "description": "Study mode option",
+      "message": "Quiz me"
+   },
+   "reCopy": {
+      "description": "Re-copy from history button",
+      "message": "Re-copy"
+   },
+   "ready": {
+      "description": "Sidepanel ready state",
+      "message": "Ready! Ask anything about this video"
+   },
+   "refreshPage": {
+      "description": "Refresh page message",
+      "message": "Refresh page"
+   },
+   "reportIssue": {
+      "description": "Feedback link",
+      "message": "Report an issue / Suggest a feature"
+   },
+   "researchMode": {
+      "description": "Sidepanel template group",
+      "message": "Research Mode"
+   },
+   "resetToDefault": {
+      "description": "Reset prompt button",
+      "message": "Reset to default"
+   },
+   "save": {
+      "description": "Save button",
+      "message": "Save"
+   },
+   "save33": {
+      "description": "Yearly savings badge",
+      "message": "Save 33%"
+   },
+   "saveCurrentAsPreset": {
+      "description": "Save preset button",
+      "message": "Save Current as Preset"
+   },
+   "savePreset": {
+      "description": "Save preset dialog title",
+      "message": "Save Preset"
+   },
+   "savedPresets": {
+      "description": "Pro feature",
+      "message": "Saved Presets"
+   },
+   "searchHistory": {
+      "description": "History search placeholder",
+      "message": "Search history..."
+   },
+   "send": {
+      "description": "Send feedback button",
+      "message": "Send"
+   },
+   "settings": {
+      "description": "Settings button/title",
+      "message": "Settings"
+   },
+   "settingsSaved": {
+      "description": "Settings saved toast",
+      "message": "Settings saved"
+   },
+   "shareFeedback": {
+      "description": "Feedback form title",
+      "message": "Share Feedback"
+   },
+   "showExportButton": {
+      "description": "Settings checkbox",
+      "message": "Show Export button"
+   },
+   "showInPageAiButton": {
+      "description": "Settings checkbox",
+      "message": "Show in-page AI Summary button"
+   },
+   "showInPageCopyButton": {
+      "description": "Settings checkbox",
+      "message": "Show in-page Copy Transcript button"
+   },
+   "showLivePreview": {
+      "description": "Settings checkbox",
+      "message": "Show Live Preview"
+   },
+   "showTimestamps": {
+      "description": "Checkbox label for timestamps",
+      "message": "Show timestamps"
+   },
+   "showTitle": {
+      "description": "Checkbox label for title",
+      "message": "Show Title"
+   },
+   "showUrl": {
+      "description": "Checkbox label for URL",
+      "message": "Show URL"
+   },
+   "studyMode": {
+      "description": "Sidepanel template group",
+      "message": "Study Mode"
+   },
+   "summarize": {
+      "description": "Sidepanel action button",
+      "message": "Summarize"
+   },
+   "text": {
+      "description": "Text export option",
+      "message": "Text"
+   },
+   "togglePanel": {
+      "description": "Keyboard shortcut description",
+      "message": "Toggle panel"
+   },
+   "trackHistory": {
+      "description": "Settings checkbox",
+      "message": "Track Transcript History"
+   },
+   "transcriptCopied": {
+      "description": "Success message when transcript is copied",
+      "message": "Transcript copied"
+   },
+   "transcriptError": {
+      "description": "Error message when transcript cannot be fetched",
+      "message": "Transcript error"
+   },
+   "translate": {
+      "description": "Sidepanel template group",
+      "message": "Translate"
+   },
+   "tweetThread": {
+      "description": "Creator mode option",
+      "message": "Tweet thread"
+   },
+   "unlimitedHistory": {
+      "description": "Pro feature",
+      "message": "Unlimited History"
+   },
+   "unlockFeature": {
+      "description": "Upgrade modal description",
+      "message": "Unlock this feature with Pro"
+   },
+   "untitled": {
+      "description": "Default title when video title cannot be found",
+      "message": "Untitled"
+   },
+   "upgrade": {
+      "description": "Upgrade button",
+      "message": "Upgrade"
+   },
+   "upgradeNow": {
+      "description": "Upgrade button",
+      "message": "Upgrade Now"
+   },
+   "viewAll": {
+      "description": "View all history button",
+      "message": "View All"
+   },
+   "waitingForPayment": {
+      "description": "Payment polling state",
+      "message": "Waiting for payment..."
+   },
+   "yearly": {
+      "description": "Pricing toggle",
+      "message": "Yearly"
+   }
+}

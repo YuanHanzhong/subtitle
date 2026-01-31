@@ -1,0 +1,30 @@
+{
+   "copyTranscript": {
+      "description": "Text shown in the extension button",
+      "message": "Copia Trascrizione"
+   },
+   "extensionDescription": {
+      "description": "Description of the extension",
+      "message": "Copia le trascrizioni dei video YouTube con un clic."
+   },
+   "extensionName": {
+      "description": "The name of the extension",
+      "message": "Copia Trascrizione YouTube"
+   },
+   "noVideoId": {
+      "description": "Error message when no video ID is found",
+      "message": "ID video non trovato"
+   },
+   "transcriptCopied": {
+      "description": "Success message when transcript is copied",
+      "message": "Trascrizione copiata"
+   },
+   "transcriptError": {
+      "description": "Error message when transcript cannot be fetched",
+      "message": "Errore trascrizione"
+   },
+   "untitled": {
+      "description": "Default title when video title cannot be found",
+      "message": "Senza titolo"
+   }
+}

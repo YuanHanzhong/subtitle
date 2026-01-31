@@ -1,0 +1,464 @@
+{
+   "activate": {
+      "description": "Activate license button",
+      "message": "有効化"
+   },
+   "activated": {
+      "description": "License activated message",
+      "message": "有効化完了！"
+   },
+   "addAiPrompt": {
+      "description": "Checkbox label for AI prompt",
+      "message": "AI要約プロンプトを追加"
+   },
+   "addSpacing": {
+      "description": "Checkbox label for spacing",
+      "message": "行間にスペースを追加"
+   },
+   "aiSidePanelChat": {
+      "description": "Pro feature",
+      "message": "AIサイドパネルチャット"
+   },
+   "aiSummary": {
+      "description": "AI Summary button text",
+      "message": "AI要約"
+   },
+   "askAnything": {
+      "description": "Message input placeholder",
+      "message": "何でも質問してください..."
+   },
+   "autoOpenAi": {
+      "description": "Settings checkbox",
+      "message": "AIプラットフォームを自動で開く"
+   },
+   "back": {
+      "description": "Back button",
+      "message": "戻る"
+   },
+   "blogOutline": {
+      "description": "Creator mode option",
+      "message": "ブログ概要"
+   },
+   "buttonLabel": {
+      "description": "Custom command label input",
+      "message": "ボタンラベル"
+   },
+   "cancel": {
+      "description": "Cancel button",
+      "message": "キャンセル"
+   },
+   "chapters": {
+      "description": "Creator mode option",
+      "message": "チャプター"
+   },
+   "chat": {
+      "description": "Chat button in history",
+      "message": "チャット"
+   },
+   "chatHistory": {
+      "description": "Chat history panel title",
+      "message": "チャット履歴"
+   },
+   "citedSummary": {
+      "description": "Research mode option",
+      "message": "引用付き要約"
+   },
+   "clearAll": {
+      "description": "Clear all history button",
+      "message": "すべてクリア"
+   },
+   "close": {
+      "description": "Close button",
+      "message": "閉じる"
+   },
+   "copied": {
+      "description": "In-page button success state",
+      "message": "コピー完了！"
+   },
+   "copyToClipboard": {
+      "description": "Main copy button text",
+      "message": "クリップボードにコピー"
+   },
+   "copyTranscript": {
+      "description": "Text shown in the extension button",
+      "message": "字幕をコピー"
+   },
+   "copying": {
+      "description": "In-page button loading state",
+      "message": "コピー中..."
+   },
+   "creatorMode": {
+      "description": "Sidepanel template group",
+      "message": "クリエイターモード"
+   },
+   "currentSettings": {
+      "description": "Default preset name",
+      "message": "現在の設定"
+   },
+   "customCommand": {
+      "description": "Custom command button",
+      "message": "カスタムコマンド"
+   },
+   "delete": {
+      "description": "Delete button",
+      "message": "削除"
+   },
+   "describeFeedback": {
+      "description": "Feedback textarea placeholder",
+      "message": "バグやアイデアを説明してください..."
+   },
+   "edit": {
+      "description": "Edit button text",
+      "message": "編集"
+   },
+   "eli5": {
+      "description": "Study mode option - Explain Like I'm 5",
+      "message": "簡単に説明"
+   },
+   "enterLicenseKey": {
+      "description": "License key modal title",
+      "message": "ライセンスキーを入力"
+   },
+   "enterPresetName": {
+      "description": "Preset name input placeholder",
+      "message": "プリセット名を入力..."
+   },
+   "error": {
+      "description": "Error state",
+      "message": "エラー"
+   },
+   "export": {
+      "description": "Export button text",
+      "message": "エクスポート"
+   },
+   "exportFormat": {
+      "description": "Export format section title",
+      "message": "エクスポート形式:"
+   },
+   "extensionDescription": {
+      "description": "Description of the extension",
+      "message": "ワンクリックでYouTube動画の字幕をコピー。"
+   },
+   "extensionName": {
+      "description": "The name of the extension",
+      "message": "YouTube字幕をコピー"
+   },
+   "extractQuotes": {
+      "description": "Sidepanel action button",
+      "message": "引用を抽出"
+   },
+   "flashcards": {
+      "description": "Study mode option",
+      "message": "フラッシュカード"
+   },
+   "freeChatsRemaining": {
+      "description": "Free usage counter",
+      "message": "無料チャット残り$COUNT$回",
+      "placeholders": {
+         "count": {
+            "content": "$1",
+            "example": "5"
+         }
+      }
+   },
+   "freeLimitDescription": {
+      "description": "Usage limit modal description",
+      "message": "無料AIチャットをすべて使用しました。無制限アクセスにはProにアップグレードしてください。"
+   },
+   "freeLimitReached": {
+      "description": "Usage limit modal title",
+      "message": "無料制限に達しました"
+   },
+   "haveLicenseKey": {
+      "description": "License key link",
+      "message": "ライセンスキーを持っています"
+   },
+   "hide": {
+      "description": "Hide history button",
+      "message": "非表示"
+   },
+   "historyDescription": {
+      "description": "Empty history description",
+      "message": "字幕をコピーするとここに表示されます。履歴はこのデバイスにのみローカル保存されます。"
+   },
+   "keyTakeaways": {
+      "description": "Sidepanel action button",
+      "message": "重要ポイント"
+   },
+   "later": {
+      "description": "Dismiss upgrade button",
+      "message": "後で"
+   },
+   "listClaims": {
+      "description": "Research mode option",
+      "message": "主張をリスト"
+   },
+   "livePreview": {
+      "description": "Live preview section title",
+      "message": "ライブプレビュー"
+   },
+   "loading": {
+      "description": "Loading state",
+      "message": "読み込み中..."
+   },
+   "manage": {
+      "description": "Manage presets button",
+      "message": "管理"
+   },
+   "managePresets": {
+      "description": "Manage presets dialog title",
+      "message": "プリセットを管理"
+   },
+   "markdown": {
+      "description": "Markdown export option",
+      "message": "マークダウン"
+   },
+   "monthly": {
+      "description": "Pricing toggle",
+      "message": "月額"
+   },
+   "mostRecentTranscript": {
+      "description": "History section title",
+      "message": "最新の字幕"
+   },
+   "noFreeChatsRemaining": {
+      "description": "Free usage exhausted",
+      "message": "無料チャットの残りがありません"
+   },
+   "noHistoryYet": {
+      "description": "Empty history title",
+      "message": "履歴がありません"
+   },
+   "noVideoId": {
+      "description": "Error message when no video ID is found",
+      "message": "動画IDが見つかりません"
+   },
+   "openQuestions": {
+      "description": "Research mode option",
+      "message": "未解決の質問"
+   },
+   "openVideo": {
+      "description": "Open video button",
+      "message": "動画を開く"
+   },
+   "openVideoToStart": {
+      "description": "Sidepanel empty state",
+      "message": "チャットを開始するにはYouTube動画を開いてください"
+   },
+   "openingCheckout": {
+      "description": "Checkout loading state",
+      "message": "決済ページを開いています..."
+   },
+   "outputFormat": {
+      "description": "Output format section title",
+      "message": "出力形式"
+   },
+   "paragraphStyle": {
+      "description": "Checkbox label for paragraph style",
+      "message": "段落スタイル（単一ブロック）"
+   },
+   "pasteLicenseKey": {
+      "description": "License key instruction",
+      "message": "Pro機能を有効化するにはライセンスキーを下に貼り付けてください。"
+   },
+   "pdf": {
+      "description": "PDF export option",
+      "message": "PDF"
+   },
+   "pdfMarkdownExport": {
+      "description": "Pro feature",
+      "message": "PDF & マークダウンエクスポート"
+   },
+   "perMonth": {
+      "description": "Price period",
+      "message": "/ 月"
+   },
+   "perYear": {
+      "description": "Price period",
+      "message": "/ 年"
+   },
+   "platform": {
+      "description": "AI platform selector label",
+      "message": "プラットフォーム:"
+   },
+   "preset": {
+      "description": "Preset label",
+      "message": "プリセット"
+   },
+   "pro": {
+      "description": "Pro badge text",
+      "message": "PRO"
+   },
+   "proFeature": {
+      "description": "Upgrade modal title",
+      "message": "Pro機能"
+   },
+   "prompt": {
+      "description": "Custom command prompt input",
+      "message": "プロンプト"
+   },
+   "quizMe": {
+      "description": "Study mode option",
+      "message": "クイズ"
+   },
+   "reCopy": {
+      "description": "Re-copy from history button",
+      "message": "再コピー"
+   },
+   "ready": {
+      "description": "Sidepanel ready state",
+      "message": "準備完了！この動画について何でも質問してください"
+   },
+   "refreshPage": {
+      "description": "Refresh page message",
+      "message": "ページを更新"
+   },
+   "reportIssue": {
+      "description": "Feedback link",
+      "message": "問題を報告 / 機能を提案"
+   },
+   "researchMode": {
+      "description": "Sidepanel template group",
+      "message": "リサーチモード"
+   },
+   "resetToDefault": {
+      "description": "Reset prompt button",
+      "message": "デフォルトに戻す"
+   },
+   "save": {
+      "description": "Save button",
+      "message": "保存"
+   },
+   "save33": {
+      "description": "Yearly savings badge",
+      "message": "33%お得"
+   },
+   "saveCurrentAsPreset": {
+      "description": "Save preset button",
+      "message": "現在の設定をプリセットとして保存"
+   },
+   "savePreset": {
+      "description": "Save preset dialog title",
+      "message": "プリセットを保存"
+   },
+   "savedPresets": {
+      "description": "Pro feature",
+      "message": "保存済みプリセット"
+   },
+   "searchHistory": {
+      "description": "History search placeholder",
+      "message": "履歴を検索..."
+   },
+   "send": {
+      "description": "Send feedback button",
+      "message": "送信"
+   },
+   "settings": {
+      "description": "Settings button/title",
+      "message": "設定"
+   },
+   "settingsSaved": {
+      "description": "Settings saved toast",
+      "message": "設定が保存されました"
+   },
+   "shareFeedback": {
+      "description": "Feedback form title",
+      "message": "フィードバックを共有"
+   },
+   "showExportButton": {
+      "description": "Settings checkbox",
+      "message": "エクスポートボタンを表示"
+   },
+   "showInPageAiButton": {
+      "description": "Settings checkbox",
+      "message": "ページ内AI要約ボタンを表示"
+   },
+   "showInPageCopyButton": {
+      "description": "Settings checkbox",
+      "message": "ページ内字幕コピーボタンを表示"
+   },
+   "showLivePreview": {
+      "description": "Settings checkbox",
+      "message": "ライブプレビューを表示"
+   },
+   "showTimestamps": {
+      "description": "Checkbox label for timestamps",
+      "message": "タイムスタンプを表示"
+   },
+   "showTitle": {
+      "description": "Checkbox label for title",
+      "message": "タイトルを表示"
+   },
+   "showUrl": {
+      "description": "Checkbox label for URL",
+      "message": "URLを表示"
+   },
+   "studyMode": {
+      "description": "Sidepanel template group",
+      "message": "学習モード"
+   },
+   "summarize": {
+      "description": "Sidepanel action button",
+      "message": "要約する"
+   },
+   "text": {
+      "description": "Text export option",
+      "message": "テキスト"
+   },
+   "togglePanel": {
+      "description": "Keyboard shortcut description",
+      "message": "パネルを切り替え"
+   },
+   "trackHistory": {
+      "description": "Settings checkbox",
+      "message": "字幕履歴を追跡"
+   },
+   "transcriptCopied": {
+      "description": "Success message when transcript is copied",
+      "message": "字幕がコピーされました"
+   },
+   "transcriptError": {
+      "description": "Error message when transcript cannot be fetched",
+      "message": "字幕エラー"
+   },
+   "translate": {
+      "description": "Sidepanel template group",
+      "message": "翻訳"
+   },
+   "tweetThread": {
+      "description": "Creator mode option",
+      "message": "ツイートスレッド"
+   },
+   "unlimitedHistory": {
+      "description": "Pro feature",
+      "message": "無制限の履歴"
+   },
+   "unlockFeature": {
+      "description": "Upgrade modal description",
+      "message": "Proでこの機能をアンロック"
+   },
+   "untitled": {
+      "description": "Default title when video title cannot be found",
+      "message": "無題"
+   },
+   "upgrade": {
+      "description": "Upgrade button",
+      "message": "アップグレード"
+   },
+   "upgradeNow": {
+      "description": "Upgrade button",
+      "message": "今すぐアップグレード"
+   },
+   "viewAll": {
+      "description": "View all history button",
+      "message": "すべて表示"
+   },
+   "waitingForPayment": {
+      "description": "Payment polling state",
+      "message": "決済を待っています..."
+   },
+   "yearly": {
+      "description": "Pricing toggle",
+      "message": "年額"
+   }
+}

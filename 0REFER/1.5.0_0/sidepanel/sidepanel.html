@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transcript AI</title>
+  <link rel="stylesheet" href="../shared/upgrade.css">
+  <link rel="stylesheet" href="sidepanel.css">
+  <style>
+    :root {
+      --upgrade-accent: #FF0000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Context Bar -->
+    <header class="context-bar">
+      <div class="video-info">
+        <svg class="yt-icon-small" viewBox="0 0 24 24"><path fill="#FF0000" d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.5.6c-1 .3-1.7 1.1-2 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8c.3 1 1 1.8 2 2.1 1.9.6 9.5.6 9.5.6s7.6 0 9.5-.6c1-.3 1.7-1.1 2-2.1.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8z"/><path fill="#FFF" d="M9.6 15.6V8.4l6.4 3.6-6.4 3.6z"/></svg>
+        <span class="video-title" id="videoTitle" data-i18n="loading">Loading...</span>
+      </div>
+      <div class="actions-group">
+        <button class="action-btn" id="copyChatBtn" title="Copy chat" disabled>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
+        <div class="download-dropdown" id="downloadDropdown">
+          <button class="action-btn" id="downloadChatBtn" title="Download chat" disabled>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+          <div class="download-menu" id="downloadMenu">
+            <button class="download-option" id="downloadMdBtn">Markdown (.md)</button>
+            <button class="download-option" id="downloadPdfBtn">PDF (.pdf)</button>
+          </div>
+        </div>
+        <button class="action-btn" id="clearChatBtn" title="Clear chat" disabled>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </button>
+        <button class="action-btn" id="historyBtn" title="Chat history">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </button>
+      </div>
+      <button class="close-btn" id="closeBtn" title="Close">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" d="M6 6l12 12M6 18L18 6"/></svg>
+      </button>
+    </header>
+
+    <!-- Chat Area -->
+    <main class="chat-area" id="chatArea">
+      <!-- Empty state -->
+      <div class="empty-state" id="emptyState">
+        <p id="emptyStateText" data-i18n="openVideoToStart">Open a YouTube video to start chatting</p>
+        <div class="shortcut-hint">
+          <span class="shortcut-label" data-i18n="togglePanel">Toggle panel</span>
+          <div class="shortcut-keys">
+            <span class="shortcut-row"><kbd>⌥</kbd> <kbd>A</kbd> <span class="os">Mac</span></span>
+            <span class="shortcut-row"><kbd>Alt</kbd> <kbd>A</kbd> <span class="os">Windows</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Messages will be inserted here -->
+    </main>
+
+    <!-- Input Card -->
+    <footer class="input-card">
+      <div class="suggested-actions-wrapper" id="suggestedWrapper">
+        <button class="suggested-toggle" id="suggestedToggle">
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          <span data-i18n="commands">Commands</span>
+        </button>
+        <div class="suggested-actions" id="suggestedActions">
+          <!-- Quick Actions -->
+        <button class="action-row" data-prompt="Summarize this video">
+          <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+          <span data-i18n="summarize">Summarize</span>
+        </button>
+        <button class="action-row" data-prompt="What are the key takeaways from this video?">
+          <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span data-i18n="keyTakeaways">Key takeaways</span>
+        </button>
+        <button class="action-row" data-prompt="Extract notable quotes from this video with timestamps in [MM:SS] format">
+          <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3z"/></svg>
+          <span data-i18n="extractQuotes">Extract quotes</span>
+        </button>
+        
+        <!-- Template Groups -->
+        <div class="template-section">
+          <div class="template-group" data-group="study">
+            <button class="template-header">
+              <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <span data-i18n="studyMode">Study Mode</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="template-options">
+              <button class="template-btn" data-prompt="Create flashcards from this video. Format each as Q: [question] A: [answer]" data-i18n="flashcards">Flashcards</button>
+              <button class="template-btn" data-prompt="Quiz me on the key concepts from this video with 5 multiple choice questions" data-i18n="quizMe">Quiz me</button>
+              <button class="template-btn" data-prompt="Explain the main concepts like I'm a beginner with no background knowledge" data-i18n="eli5">ELI5</button>
+            </div>
+          </div>
+          
+          <div class="template-group" data-group="research">
+            <button class="template-header">
+              <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <span data-i18n="researchMode">Research Mode</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="template-options">
+              <button class="template-btn" data-prompt="List all factual claims made in this video with their timestamps [MM:SS]" data-i18n="listClaims">List claims</button>
+              <button class="template-btn" data-prompt="Provide a detailed summary with timestamps [MM:SS] for each main section" data-i18n="citedSummary">Cited summary</button>
+              <button class="template-btn" data-prompt="What questions does this video leave unanswered?" data-i18n="openQuestions">Open questions</button>
+            </div>
+          </div>
+          
+          <div class="template-group" data-group="creator">
+            <button class="template-header">
+              <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/></svg>
+              <span data-i18n="creatorMode">Creator Mode</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="template-options">
+              <button class="template-btn" data-prompt="Write a Twitter/X thread (5-7 tweets) summarizing this video's key points" data-i18n="tweetThread">Tweet thread</button>
+              <button class="template-btn" data-prompt="Create a blog post outline with sections and bullet points based on this video" data-i18n="blogOutline">Blog outline</button>
+              <button class="template-btn" data-prompt="Generate YouTube chapter titles with timestamps [MM:SS] for this video" data-i18n="chapters">Chapters</button>
+            </div>
+          </div>
+          <div class="template-group" data-group="translate">
+            <button class="template-header">
+              <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
+              <span data-i18n="translate">Translate</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="template-options">
+              <button class="template-btn" data-prompt="Translate this transcript to English. Keep the timestamps in their original format.">English</button>
+              <button class="template-btn" data-prompt="Translate this transcript to Spanish. Keep the timestamps in their original format.">Spanish</button>
+              <button class="template-btn" data-prompt="Translate this transcript to Portuguese. Keep the timestamps in their original format.">Portuguese</button>
+              <button class="template-btn" data-prompt="Translate this transcript to Korean. Keep the timestamps in their original format.">Korean</button>
+              <button class="template-btn" data-prompt="Translate this transcript to Japanese. Keep the timestamps in their original format.">Japanese</button>
+              <button class="template-btn" data-prompt="Translate this transcript to German. Keep the timestamps in their original format.">German</button>
+              <button class="template-btn" data-prompt="Translate this transcript to French. Keep the timestamps in their original format.">French</button>
+              <button class="template-btn" data-prompt="Translate this transcript to Chinese (Simplified). Keep the timestamps in their original format.">Chinese</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Custom Command -->
+        <div class="action-row custom-command-btn" id="customCommandBtn" data-prompt="">
+          <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span id="customCommandLabel" data-i18n="customCommand">Custom command</span>
+          <span class="edit-command-btn" id="editCommandBtn" title="Edit command">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+          </span>
+        </div>
+        </div>
+      </div>
+      <div class="ai-usage-counter" id="aiUsageCounter" style="display: none;">
+        <span class="counter-text" id="counterText">5 free chats remaining</span>
+        <button class="upgrade-link" id="counterUpgradeBtn" data-i18n="upgrade">Upgrade</button>
+      </div>
+      <div class="input-row">
+        <input 
+          type="text" 
+          class="message-input" 
+          id="messageInput" 
+          data-i18n-placeholder="askAnything"
+          placeholder="Ask anything..."
+          autocomplete="off"
+        >
+        <button class="send-btn" id="sendBtn" disabled>
+          <svg class="send-icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M3.4 20.4l17.45-7.48c.81-.35.81-1.49 0-1.84L3.4 3.6c-.66-.29-1.39.2-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z"/></svg>
+        </button>
+      </div>
+    </footer>
+    
+    <!-- Custom Command Config Modal -->
+    <div class="custom-command-modal" id="customCommandModal">
+      <div class="modal-content">
+        <h3 data-i18n="customCommand">Custom Command</h3>
+        <div class="modal-field">
+          <label for="commandLabelInput" data-i18n="buttonLabel">Button Label</label>
+          <input type="text" id="commandLabelInput" placeholder="e.g., Extract quotes" maxlength="30">
+        </div>
+        <div class="modal-field">
+          <label for="commandPromptInput" data-i18n="prompt">Prompt</label>
+          <textarea id="commandPromptInput" placeholder="e.g., List all notable quotes from this video" rows="3"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button class="modal-btn delete" id="deleteCommandBtn" data-i18n="delete">Delete</button>
+          <button class="modal-btn cancel" id="cancelCommandBtn" data-i18n="cancel">Cancel</button>
+          <button class="modal-btn save" id="saveCommandBtn" data-i18n="save">Save</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Chat History Panel -->
+    <div class="history-panel" id="historyPanel">
+      <div class="history-panel-header">
+        <h3 data-i18n="chatHistory">Chat History</h3>
+        <div class="history-panel-actions">
+          <button class="history-clear-btn" id="clearChatHistoryBtn" title="Clear all chat history">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          </button>
+          <button class="history-panel-close" id="historyPanelClose" title="Close">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" d="M6 6l12 12M6 18L18 6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="history-panel-list" id="historyPanelList">
+        <!-- History entries will be inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <script src="../pro-features.js"></script>
+  <script src="../shared/i18n.js"></script>
+  <script src="../shared/upgrade.js"></script>
+  <script src="../jspdf.min.js"></script>
+  <script src="sidepanel.js"></script>
+</body>
+</html>

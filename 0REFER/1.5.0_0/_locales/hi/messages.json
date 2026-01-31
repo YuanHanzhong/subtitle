@@ -1,0 +1,30 @@
+{
+   "copyTranscript": {
+      "description": "Text shown in the extension button",
+      "message": "ट्रांसक्रिप्ट कॉपी करें"
+   },
+   "extensionDescription": {
+      "description": "Description of the extension",
+      "message": "एक क्लिक में यूट्यूब वीडियो ट्रांसक्रिप्ट कॉपी करें।"
+   },
+   "extensionName": {
+      "description": "The name of the extension",
+      "message": "यूट्यूब ट्रांसक्रिप्ट कॉपी करें"
+   },
+   "noVideoId": {
+      "description": "Error message when no video ID is found",
+      "message": "कोई वीडियो आईडी नहीं मिला"
+   },
+   "transcriptCopied": {
+      "description": "Success message when transcript is copied",
+      "message": "ट्रांसक्रिप्ट कॉपी हो गई"
+   },
+   "transcriptError": {
+      "description": "Error message when transcript cannot be fetched",
+      "message": "ट्रांसक्रिप्ट में त्रुटि"
+   },
+   "untitled": {
+      "description": "Default title when video title cannot be found",
+      "message": "बिना शीर्षक"
+   }
+}

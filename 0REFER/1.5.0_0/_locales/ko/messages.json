@@ -1,0 +1,464 @@
+{
+   "activate": {
+      "description": "Activate license button",
+      "message": "활성화"
+   },
+   "activated": {
+      "description": "License activated message",
+      "message": "활성화됨!"
+   },
+   "addAiPrompt": {
+      "description": "Checkbox label for AI prompt",
+      "message": "AI 요약 프롬프트 추가"
+   },
+   "addSpacing": {
+      "description": "Checkbox label for spacing",
+      "message": "줄 사이 간격 추가"
+   },
+   "aiSidePanelChat": {
+      "description": "Pro feature",
+      "message": "AI 사이드 패널 채팅"
+   },
+   "aiSummary": {
+      "description": "AI Summary button text",
+      "message": "AI 요약"
+   },
+   "askAnything": {
+      "description": "Message input placeholder",
+      "message": "무엇이든 물어보세요..."
+   },
+   "autoOpenAi": {
+      "description": "Settings checkbox",
+      "message": "AI 플랫폼 자동 열기"
+   },
+   "back": {
+      "description": "Back button",
+      "message": "뒤로"
+   },
+   "blogOutline": {
+      "description": "Creator mode option",
+      "message": "블로그 개요"
+   },
+   "buttonLabel": {
+      "description": "Custom command label input",
+      "message": "버튼 라벨"
+   },
+   "cancel": {
+      "description": "Cancel button",
+      "message": "취소"
+   },
+   "chapters": {
+      "description": "Creator mode option",
+      "message": "챕터"
+   },
+   "chat": {
+      "description": "Chat button in history",
+      "message": "채팅"
+   },
+   "chatHistory": {
+      "description": "Chat history panel title",
+      "message": "채팅 기록"
+   },
+   "citedSummary": {
+      "description": "Research mode option",
+      "message": "인용 요약"
+   },
+   "clearAll": {
+      "description": "Clear all history button",
+      "message": "모두 지우기"
+   },
+   "close": {
+      "description": "Close button",
+      "message": "닫기"
+   },
+   "copied": {
+      "description": "In-page button success state",
+      "message": "복사됨!"
+   },
+   "copyToClipboard": {
+      "description": "Main copy button text",
+      "message": "클립보드에 복사"
+   },
+   "copyTranscript": {
+      "description": "Text shown in the extension button",
+      "message": "자막 복사"
+   },
+   "copying": {
+      "description": "In-page button loading state",
+      "message": "복사 중..."
+   },
+   "creatorMode": {
+      "description": "Sidepanel template group",
+      "message": "크리에이터 모드"
+   },
+   "currentSettings": {
+      "description": "Default preset name",
+      "message": "현재 설정"
+   },
+   "customCommand": {
+      "description": "Custom command button",
+      "message": "사용자 정의 명령"
+   },
+   "delete": {
+      "description": "Delete button",
+      "message": "삭제"
+   },
+   "describeFeedback": {
+      "description": "Feedback textarea placeholder",
+      "message": "버그 또는 아이디어를 설명해 주세요..."
+   },
+   "edit": {
+      "description": "Edit button text",
+      "message": "편집"
+   },
+   "eli5": {
+      "description": "Study mode option - Explain Like I'm 5",
+      "message": "쉽게 설명"
+   },
+   "enterLicenseKey": {
+      "description": "License key modal title",
+      "message": "라이선스 키 입력"
+   },
+   "enterPresetName": {
+      "description": "Preset name input placeholder",
+      "message": "프리셋 이름 입력..."
+   },
+   "error": {
+      "description": "Error state",
+      "message": "오류"
+   },
+   "export": {
+      "description": "Export button text",
+      "message": "내보내기"
+   },
+   "exportFormat": {
+      "description": "Export format section title",
+      "message": "내보내기 형식:"
+   },
+   "extensionDescription": {
+      "description": "Description of the extension",
+      "message": "한 번의 클릭으로 YouTube 동영상 자막을 복사하세요."
+   },
+   "extensionName": {
+      "description": "The name of the extension",
+      "message": "YouTube 자막 복사"
+   },
+   "extractQuotes": {
+      "description": "Sidepanel action button",
+      "message": "인용구 추출"
+   },
+   "flashcards": {
+      "description": "Study mode option",
+      "message": "플래시카드"
+   },
+   "freeChatsRemaining": {
+      "description": "Free usage counter",
+      "message": "무료 채팅 $COUNT$회 남음",
+      "placeholders": {
+         "count": {
+            "content": "$1",
+            "example": "5"
+         }
+      }
+   },
+   "freeLimitDescription": {
+      "description": "Usage limit modal description",
+      "message": "무료 AI 채팅을 모두 사용했습니다. 무제한 이용을 위해 Pro로 업그레이드하세요."
+   },
+   "freeLimitReached": {
+      "description": "Usage limit modal title",
+      "message": "무료 한도 도달"
+   },
+   "haveLicenseKey": {
+      "description": "License key link",
+      "message": "라이선스 키가 있습니다"
+   },
+   "hide": {
+      "description": "Hide history button",
+      "message": "숨기기"
+   },
+   "historyDescription": {
+      "description": "Empty history description",
+      "message": "자막을 복사하면 여기에 표시됩니다. 기록은 이 기기에만 로컬로 저장됩니다."
+   },
+   "keyTakeaways": {
+      "description": "Sidepanel action button",
+      "message": "핵심 내용"
+   },
+   "later": {
+      "description": "Dismiss upgrade button",
+      "message": "나중에"
+   },
+   "listClaims": {
+      "description": "Research mode option",
+      "message": "주장 나열"
+   },
+   "livePreview": {
+      "description": "Live preview section title",
+      "message": "실시간 미리보기"
+   },
+   "loading": {
+      "description": "Loading state",
+      "message": "로딩 중..."
+   },
+   "manage": {
+      "description": "Manage presets button",
+      "message": "관리"
+   },
+   "managePresets": {
+      "description": "Manage presets dialog title",
+      "message": "프리셋 관리"
+   },
+   "markdown": {
+      "description": "Markdown export option",
+      "message": "마크다운"
+   },
+   "monthly": {
+      "description": "Pricing toggle",
+      "message": "월간"
+   },
+   "mostRecentTranscript": {
+      "description": "History section title",
+      "message": "최근 자막"
+   },
+   "noFreeChatsRemaining": {
+      "description": "Free usage exhausted",
+      "message": "무료 채팅이 남아있지 않습니다"
+   },
+   "noHistoryYet": {
+      "description": "Empty history title",
+      "message": "기록이 없습니다"
+   },
+   "noVideoId": {
+      "description": "Error message when no video ID is found",
+      "message": "동영상 ID를 찾을 수 없습니다"
+   },
+   "openQuestions": {
+      "description": "Research mode option",
+      "message": "미해결 질문"
+   },
+   "openVideo": {
+      "description": "Open video button",
+      "message": "동영상 열기"
+   },
+   "openVideoToStart": {
+      "description": "Sidepanel empty state",
+      "message": "채팅을 시작하려면 YouTube 동영상을 열어주세요"
+   },
+   "openingCheckout": {
+      "description": "Checkout loading state",
+      "message": "결제 페이지 열기..."
+   },
+   "outputFormat": {
+      "description": "Output format section title",
+      "message": "출력 형식"
+   },
+   "paragraphStyle": {
+      "description": "Checkbox label for paragraph style",
+      "message": "문단 스타일 (단일 블록)"
+   },
+   "pasteLicenseKey": {
+      "description": "License key instruction",
+      "message": "Pro 기능을 활성화하려면 아래에 라이선스 키를 붙여넣으세요."
+   },
+   "pdf": {
+      "description": "PDF export option",
+      "message": "PDF"
+   },
+   "pdfMarkdownExport": {
+      "description": "Pro feature",
+      "message": "PDF & 마크다운 내보내기"
+   },
+   "perMonth": {
+      "description": "Price period",
+      "message": "/ 월"
+   },
+   "perYear": {
+      "description": "Price period",
+      "message": "/ 년"
+   },
+   "platform": {
+      "description": "AI platform selector label",
+      "message": "플랫폼:"
+   },
+   "preset": {
+      "description": "Preset label",
+      "message": "프리셋"
+   },
+   "pro": {
+      "description": "Pro badge text",
+      "message": "PRO"
+   },
+   "proFeature": {
+      "description": "Upgrade modal title",
+      "message": "Pro 기능"
+   },
+   "prompt": {
+      "description": "Custom command prompt input",
+      "message": "프롬프트"
+   },
+   "quizMe": {
+      "description": "Study mode option",
+      "message": "퀴즈"
+   },
+   "reCopy": {
+      "description": "Re-copy from history button",
+      "message": "다시 복사"
+   },
+   "ready": {
+      "description": "Sidepanel ready state",
+      "message": "준비 완료! 이 동영상에 대해 무엇이든 물어보세요"
+   },
+   "refreshPage": {
+      "description": "Refresh page message",
+      "message": "페이지 새로고침"
+   },
+   "reportIssue": {
+      "description": "Feedback link",
+      "message": "문제 신고 / 기능 제안"
+   },
+   "researchMode": {
+      "description": "Sidepanel template group",
+      "message": "연구 모드"
+   },
+   "resetToDefault": {
+      "description": "Reset prompt button",
+      "message": "기본값으로 재설정"
+   },
+   "save": {
+      "description": "Save button",
+      "message": "저장"
+   },
+   "save33": {
+      "description": "Yearly savings badge",
+      "message": "33% 절약"
+   },
+   "saveCurrentAsPreset": {
+      "description": "Save preset button",
+      "message": "현재 설정을 프리셋으로 저장"
+   },
+   "savePreset": {
+      "description": "Save preset dialog title",
+      "message": "프리셋 저장"
+   },
+   "savedPresets": {
+      "description": "Pro feature",
+      "message": "저장된 프리셋"
+   },
+   "searchHistory": {
+      "description": "History search placeholder",
+      "message": "기록 검색..."
+   },
+   "send": {
+      "description": "Send feedback button",
+      "message": "보내기"
+   },
+   "settings": {
+      "description": "Settings button/title",
+      "message": "설정"
+   },
+   "settingsSaved": {
+      "description": "Settings saved toast",
+      "message": "설정이 저장되었습니다"
+   },
+   "shareFeedback": {
+      "description": "Feedback form title",
+      "message": "피드백 공유"
+   },
+   "showExportButton": {
+      "description": "Settings checkbox",
+      "message": "내보내기 버튼 표시"
+   },
+   "showInPageAiButton": {
+      "description": "Settings checkbox",
+      "message": "페이지 내 AI 요약 버튼 표시"
+   },
+   "showInPageCopyButton": {
+      "description": "Settings checkbox",
+      "message": "페이지 내 자막 복사 버튼 표시"
+   },
+   "showLivePreview": {
+      "description": "Settings checkbox",
+      "message": "실시간 미리보기 표시"
+   },
+   "showTimestamps": {
+      "description": "Checkbox label for timestamps",
+      "message": "타임스탬프 표시"
+   },
+   "showTitle": {
+      "description": "Checkbox label for title",
+      "message": "제목 표시"
+   },
+   "showUrl": {
+      "description": "Checkbox label for URL",
+      "message": "URL 표시"
+   },
+   "studyMode": {
+      "description": "Sidepanel template group",
+      "message": "학습 모드"
+   },
+   "summarize": {
+      "description": "Sidepanel action button",
+      "message": "요약하기"
+   },
+   "text": {
+      "description": "Text export option",
+      "message": "텍스트"
+   },
+   "togglePanel": {
+      "description": "Keyboard shortcut description",
+      "message": "패널 전환"
+   },
+   "trackHistory": {
+      "description": "Settings checkbox",
+      "message": "자막 기록 추적"
+   },
+   "transcriptCopied": {
+      "description": "Success message when transcript is copied",
+      "message": "자막이 복사되었습니다"
+   },
+   "transcriptError": {
+      "description": "Error message when transcript cannot be fetched",
+      "message": "자막 오류"
+   },
+   "translate": {
+      "description": "Sidepanel template group",
+      "message": "번역"
+   },
+   "tweetThread": {
+      "description": "Creator mode option",
+      "message": "트윗 스레드"
+   },
+   "unlimitedHistory": {
+      "description": "Pro feature",
+      "message": "무제한 기록"
+   },
+   "unlockFeature": {
+      "description": "Upgrade modal description",
+      "message": "Pro로 이 기능을 잠금 해제하세요"
+   },
+   "untitled": {
+      "description": "Default title when video title cannot be found",
+      "message": "제목 없음"
+   },
+   "upgrade": {
+      "description": "Upgrade button",
+      "message": "업그레이드"
+   },
+   "upgradeNow": {
+      "description": "Upgrade button",
+      "message": "지금 업그레이드"
+   },
+   "viewAll": {
+      "description": "View all history button",
+      "message": "전체 보기"
+   },
+   "waitingForPayment": {
+      "description": "Payment polling state",
+      "message": "결제 대기 중..."
+   },
+   "yearly": {
+      "description": "Pricing toggle",
+      "message": "연간"
+   }
+}

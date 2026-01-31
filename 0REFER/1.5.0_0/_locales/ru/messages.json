@@ -1,0 +1,30 @@
+{
+   "copyTranscript": {
+      "description": "Text shown in the extension button",
+      "message": "Копировать транскрипт"
+   },
+   "extensionDescription": {
+      "description": "Description of the extension",
+      "message": "Копируйте транскрипты видео YouTube одним щелчком мыши."
+   },
+   "extensionName": {
+      "description": "The name of the extension",
+      "message": "Копировать транскрипт YouTube"
+   },
+   "noVideoId": {
+      "description": "Error message when no video ID is found",
+      "message": "ID видео не найден"
+   },
+   "transcriptCopied": {
+      "description": "Success message when transcript is copied",
+      "message": "Транскрипт скопирован"
+   },
+   "transcriptError": {
+      "description": "Error message when transcript cannot be fetched",
+      "message": "Ошибка транскрипта"
+   },
+   "untitled": {
+      "description": "Default title when video title cannot be found",
+      "message": "Без названия"
+   }
+}

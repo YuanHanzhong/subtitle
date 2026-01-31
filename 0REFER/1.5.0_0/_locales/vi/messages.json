@@ -1,0 +1,30 @@
+{
+   "copyTranscript": {
+      "description": "Text shown in the extension button",
+      "message": "Sao chép Bản ghi"
+   },
+   "extensionDescription": {
+      "description": "Description of the extension",
+      "message": "Sao chép bản ghi video YouTube chỉ bằng một cú nhấp chuột."
+   },
+   "extensionName": {
+      "description": "The name of the extension",
+      "message": "Sao chép Bản ghi YouTube"
+   },
+   "noVideoId": {
+      "description": "Error message when no video ID is found",
+      "message": "Không tìm thấy ID video"
+   },
+   "transcriptCopied": {
+      "description": "Success message when transcript is copied",
+      "message": "Đã sao chép bản ghi"
+   },
+   "transcriptError": {
+      "description": "Error message when transcript cannot be fetched",
+      "message": "Lỗi bản ghi"
+   },
+   "untitled": {
+      "description": "Default title when video title cannot be found",
+      "message": "Không có tiêu đề"
+   }
+}

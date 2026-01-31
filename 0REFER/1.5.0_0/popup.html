@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="shared/upgrade.css">
+  <style>
+    :root {
+      /* Light theme variables */
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --text-primary: #2c3e50;
+      --text-secondary: #6c757d;
+      --border-color: #e9ecef;
+      --button-primary-bg: #065fd4;
+      --button-primary-hover: #0056c7;
+      --button-secondary-bg: #f8f9fa;
+      --button-secondary-hover: #e9ecef;
+      --button-secondary-border: #e9ecef;
+      --success-bg: rgba(6, 95, 212, 0.1);
+      --success-border: #065fd4;
+      --success-text: #065fd4;
+      --error-bg: #fce8e6;
+      --error-border: #ea4335;
+      --error-text: #d93025;
+      --checkbox-border: #065fd4;
+      --checkbox-hover-shadow: rgba(6, 95, 212, 0.1);
+      
+      /* Upgrade Modal Accent */
+      --upgrade-accent: #065fd4;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        /* Dark theme variables */
+        --bg-primary: #202124;
+        --bg-secondary: #303134;
+        --text-primary: #e8eaed;
+        --text-secondary: #9aa0a6;
+        --border-color: #3c4043;
+        --button-primary-bg: #065fd4;
+        --button-primary-hover: #0056c7;
+        --button-secondary-bg: #303134;
+        --button-secondary-hover: #3c4043;
+        --button-secondary-border: #3c4043;
+        --success-bg: rgba(6, 95, 212, 0.15);
+        --success-border: #065fd4;
+        --success-text: #8ab4f8;
+        --error-bg: #3c191a;
+        --error-border: #ea4335;
+        --error-text: #f28b82;
+        --checkbox-border: #065fd4;
+        --checkbox-hover-shadow: rgba(6, 95, 212, 0.2);
+      }
+    }
+
+    body {
+      width: 320px;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      margin: 0;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .header img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      flex: 1;
+    }
+    
+    .settings-button {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    
+    .settings-button:hover {
+      background: var(--button-secondary-hover);
+      color: var(--text-primary);
+    }
+    
+    .settings-button:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .button {
+      flex: 1;
+      min-width: 0;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+    }
+
+    .button-group .button {
+      width: 50%;
+      flex: 1 1 0%;
+    }
+
+    .button span {
+      position: relative;
+      z-index: 1;
+      transition: opacity 0.2s ease;
+    }
+
+    .button.primary {
+      background: var(--button-primary-bg);
+      color: white;
+      box-shadow: 0 2px 4px rgba(6, 95, 212, 0.2);
+    }
+
+    .button.primary:hover {
+      background: var(--button-primary-hover);
+      box-shadow: 0 4px 8px rgba(6, 95, 212, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .button.secondary {
+      background: var(--button-secondary-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--button-secondary-border);
+    }
+
+    .button.secondary:hover {
+      background: var(--button-secondary-hover);
+      border-color: var(--button-secondary-border);
+    }
+
+    .button.loading {
+      cursor: not-allowed;
+    }
+
+    .button.loading span {
+      opacity: 0;
+    }
+
+    .spinner {
+      display: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 0.8s linear infinite;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .button.secondary .spinner {
+      border-color: rgba(0, 0, 0, 0.3);
+      border-top-color: #1a1a1a;
+    }
+
+    .button.ai-chat-btn {
+      width: 100%;
+      margin-top: 8px;
+      background: #3b82f6;
+      border: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+    }
+
+    .button.ai-chat-btn:hover {
+      background: #2563eb;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.5);
+      transform: translateY(-1px);
+    }
+
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .status {
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+    }
+
+    .status.show {
+      display: flex;
+    }
+
+    .status.success {
+      background: var(--success-bg);
+      border-color: var(--success-border);
+      color: var(--success-text);
+    }
+
+    .status.error {
+      background: var(--error-bg);
+      border-color: var(--error-border);
+      color: var(--error-text);
+    }
+
+    .status-message {
+      flex: 1;
+    }
+
+    .retry-button {
+      background: none;
+      border: none;
+      color: inherit;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+    }
+
+    .retry-button:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .format-section {
+      border-top: 1px solid var(--border-color);
+      padding-top: 16px;
+      margin-top: 8px;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .format-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .format-header:hover .format-title {
+      color: var(--button-primary-bg);
+    }
+
+    .format-chevron {
+      color: var(--text-secondary);
+      transition: transform 0.2s ease;
+    }
+
+    .format-header:hover .format-chevron {
+      color: var(--button-primary-bg);
+    }
+
+    .format-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .format-dropdown {
+      display: none;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .format-dropdown.show {
+      display: block;
+    }
+
+    .format-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: var(--text-primary);
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+    }
+
+    .format-option:hover {
+      background: var(--button-secondary-hover);
+    }
+
+    .checkbox {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--checkbox-border);
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .checkbox:hover {
+      border-color: var(--button-primary-hover);
+      box-shadow: 0 0 0 2px var(--checkbox-hover-shadow);
+    }
+
+    .checkbox.checked {
+      background: var(--button-primary-bg);
+    }
+
+    .checkbox.checked::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      width: 4px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .native-checkbox {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    
+    .native-checkbox:checked + .checkbox-label .checkbox {
+      background: var(--button-primary-bg);
+    }
+    
+    .native-checkbox:checked + .checkbox-label .checkbox::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      width: 4px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .native-checkbox:focus + .checkbox-label .checkbox {
+      border-color: var(--button-primary-hover);
+      box-shadow: 0 0 0 2px var(--checkbox-hover-shadow);
+    }
+
+    .format-option label {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .settings-saved {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--success-border);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      box-shadow: 0 2px 8px rgba(52, 168, 83, 0.3);
+    }
+
+    .settings-saved.show {
+      opacity: 1;
+    }
+
+    .format-section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 12px 0 8px;
+      padding: 0 4px;
+    }
+
+    .format-separator {
+      height: 1px;
+      background: var(--border-color);
+      margin: 8px 0;
+    }
+
+    .prompt-section {
+      margin-top: 8px;
+      padding: 8px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      display: none;
+    }
+
+    .prompt-section.show {
+      display: block;
+    }
+
+    .prompt-edit-button {
+      background: none;
+      border: none;
+      color: var(--button-primary-bg);
+      font-size: 11px;
+      cursor: pointer;
+      padding: 2px 4px;
+      border-radius: 3px;
+      opacity: 0.8;
+      transition: opacity 0.2s ease;
+      margin-left: 4px;
+    }
+
+    .prompt-edit-button:hover {
+      opacity: 1;
+    }
+
+    .prompt-textarea {
+      width: 100%;
+      height: 80px;
+      padding: 8px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 11px;
+      line-height: 1.3;
+      resize: none;
+      font-family: inherit;
+      margin-bottom: 4px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
+    .prompt-textarea::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .prompt-textarea::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+      border-radius: 3px;
+    }
+
+    .prompt-textarea::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 3px;
+    }
+
+    .prompt-textarea::-webkit-scrollbar-thumb:hover {
+      background: var(--text-secondary);
+    }
+
+    .prompt-textarea:focus {
+      outline: none;
+      border-color: var(--button-primary-bg);
+      box-shadow: 0 0 0 1px var(--button-primary-bg);
+    }
+
+    .prompt-actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .prompt-reset {
+      background: none;
+      border: none;
+      color: var(--button-primary-bg);
+      font-size: 11px;
+      cursor: pointer;
+      padding: 2px 4px;
+      border-radius: 3px;
+      opacity: 0.8;
+      transition: opacity 0.2s ease;
+    }
+
+    .prompt-reset:hover {
+      opacity: 1;
+    }
+
+    #downloadButton {
+      display: none;
+      width: 50%;
+    }
+
+    #downloadButton.show {
+      display: flex;
+    }
+
+    .feedback-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+
+    .feedback-overlay.show {
+      display: flex;
+    }
+
+    .feedback-form {
+      background: var(--bg-primary);
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    
+    .feedback-form h2 {
+      font-size: 16px;
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .feedback-textarea {
+      width: 100%;
+      height: 100px;
+      padding: 8px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 14px;
+      resize: vertical;
+      font-family: inherit;
+      margin-bottom: 12px;
+      box-sizing: border-box;
+    }
+
+    .feedback-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .feedback-link {
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-align: center;
+      cursor: pointer;
+      margin-top: -8px;
+      padding: 4px;
+      text-decoration: underline;
+    }
+
+    .feedback-link:hover {
+      color: var(--text-primary);
+    }
+
+    .export-options {
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: -8px;
+    }
+
+    .export-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .export-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .export-button {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .export-button:hover {
+      background: var(--button-secondary-hover);
+      border-color: var(--button-primary-bg);
+    }
+
+    .export-button.pro {
+      position: relative;
+    }
+
+    .pro-badge {
+      background: transparent;
+      color: var(--button-primary-bg);
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--button-primary-bg);
+      margin-left: 6px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .preview-section {
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .preview-section.show {
+      display: flex;
+    }
+
+    .preview-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    
+    .preview-area {
+      width: 100%;
+      height: 120px;
+      padding: 8px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      font-size: 12px;
+      line-height: 1.4;
+      resize: none;
+      font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+      box-sizing: border-box;
+      opacity: 0.8;
+    }
+    .preset-section {
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
+      margin-top: 8px;
+      display: none;
+    }
+
+    .preset-section.has-presets {
+      display: block;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 16px 12px;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      border: 1px dashed var(--border-color);
+    }
+
+    .empty-state-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+      opacity: 0.6;
+    }
+
+    .empty-state-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .empty-state-text {
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .empty-state-link {
+      color: var(--button-primary-bg);
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .empty-state-link:hover {
+      color: var(--button-primary-hover);
+    }
+    
+    .preset-selector {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      transition: all 0.2s ease;
+    }
+    
+    .preset-selector:hover {
+      border-color: var(--button-primary-bg);
+      box-shadow: 0 2px 4px rgba(6, 95, 212, 0.1);
+    }
+    
+    .preset-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      min-width: 50px;
+    }
+    
+    .preset-dropdown-wrapper {
+      flex: 1;
+      position: relative;
+    }
+    
+    .preset-dropdown-button {
+      width: 100%;
+      padding: 6px 10px;
+      padding-right: 30px;
+      border: none;
+      border-radius: 4px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+    }
+    
+    .preset-dropdown-button:hover {
+      background-color: var(--button-secondary-hover);
+    }
+    
+    .preset-dropdown-button:focus {
+      outline: none;
+      background-color: var(--button-secondary-hover);
+      box-shadow: 0 0 0 2px rgba(6, 95, 212, 0.2);
+    }
+    
+    .preset-dropdown-button svg {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.6;
+      transition: transform 0.2s ease;
+    }
+    
+    .preset-dropdown-button.open svg {
+      transform: translateY(-50%) rotate(180deg);
+    }
+    
+    .preset-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin-top: 4px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: none;
+      z-index: 1000;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    
+    .preset-dropdown-menu.show {
+      display: block;
+    }
+    
+    .preset-option {
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+    
+    .preset-option:hover {
+      background: var(--button-secondary-hover);
+    }
+    
+    .preset-option.selected {
+      background: var(--button-secondary-hover);
+      font-weight: 500;
+    }
+    
+    .preset-option:first-child {
+      border-radius: 6px 6px 0 0;
+    }
+    
+    .preset-option:last-child {
+      border-radius: 0 0 6px 6px;
+    }
+    
+    .preset-manage-button {
+      padding: 6px 10px;
+      background: var(--bg-primary);
+      color: var(--button-primary-bg);
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .preset-manage-button:hover {
+      background: var(--button-secondary-hover);
+      transform: translateY(-1px);
+    }
+    
+    
+    .save-preset-button {
+      width: 100%;
+      padding: 10px 12px;
+      background: transparent;
+      color: var(--button-primary-bg);
+      border: 1px solid var(--button-primary-bg);
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      margin-top: 8px;
+    }
+    
+    .save-preset-button:hover {
+      background: var(--button-primary-bg);
+      color: white;
+    }
+    
+    .save-preset-dialog,
+    .manage-presets-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    
+    .save-preset-dialog.show,
+    .manage-presets-modal.show {
+      display: flex;
+    }
+    
+    .dialog-content {
+      background: var(--bg-primary);
+      border-radius: 8px;
+      padding: 20px;
+      width: 280px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+    
+    .dialog-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    
+    .preset-name-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 14px;
+      margin-bottom: 4px;
+      box-sizing: border-box;
+    }
+    
+    .preset-name-input:focus {
+      outline: none;
+      border-color: var(--button-primary-bg);
+      box-shadow: 0 0 0 1px var(--button-primary-bg);
+    }
+    
+    .char-count {
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-align: right;
+      margin-bottom: 12px;
+    }
+    
+    .dialog-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+    
+    .dialog-button {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+    
+    .dialog-button.cancel {
+      background: var(--button-secondary-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--button-secondary-border);
+    }
+    
+    .dialog-button.cancel:hover {
+      background: var(--button-secondary-hover);
+    }
+    
+    .dialog-button.save {
+      background: var(--button-primary-bg);
+      color: white;
+    }
+    
+    .dialog-button.save:hover {
+      background: var(--button-primary-hover);
+    }
+    
+    .dialog-button.save:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .preset-list {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 16px;
+    }
+    
+    .preset-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      background: var(--bg-secondary);
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+    
+    .preset-item:hover {
+      background: var(--button-secondary-hover);
+    }
+    
+    .preset-name {
+      font-size: 14px;
+      color: var(--text-primary);
+      flex: 1;
+    }
+    
+    .preset-actions {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .preset-action-button {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 4px;
+      transition: all 0.2s ease;
+    }
+    
+    .preset-action-button:hover {
+      color: var(--text-primary);
+    }
+    
+    .preset-action-button.delete:hover {
+      color: var(--error-text);
+    }
+    
+    .custom-indicator {
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-style: italic;
+      margin-left: 4px;
+    }
+    
+    .history-section {
+      border-top: 1px solid var(--border-color);
+      margin-top: 12px;
+      padding-top: 12px;
+      display: none;
+    }
+
+    .history-section.history-enabled {
+      display: block;
+    }
+
+    .history-content {
+      display: none;
+    }
+
+    .history-section.has-entries .history-content {
+      display: block;
+    }
+
+    .history-section.has-entries .empty-state {
+      display: none;
+    }
+    
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .history-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    
+    .history-view-all {
+      background: none;
+      border: none;
+      color: var(--button-primary-bg);
+      font-size: 12px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+    
+    .history-view-all:hover {
+      background: var(--button-secondary-hover);
+    }
+    
+    .recent-history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    
+    .history-entry {
+      padding: 8px;
+      background: var(--bg-secondary);
+      border-radius: 6px;
+      font-size: 12px;
+      transition: all 0.2s ease;
+    }
+    
+    .history-entry:hover {
+      background: var(--button-secondary-hover);
+    }
+    
+    .history-entry-title {
+      color: var(--text-primary);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 2px;
+    }
+    
+    .history-entry-meta {
+      color: var(--text-secondary);
+      font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .history-entry-actions {
+      display: flex;
+      gap: 4px;
+      margin-top: 4px;
+    }
+    
+    .history-action-button {
+      padding: 3px 8px;
+      background: var(--button-primary-bg);
+      color: white;
+      border: none;
+      border-radius: 3px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .history-action-button:hover {
+      background: var(--button-primary-hover);
+    }
+    
+    .history-action-button.secondary {
+      background: var(--button-secondary-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+    
+    .history-action-button.secondary:hover {
+      background: var(--button-secondary-hover);
+    }
+    
+    .history-action-button.delete {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
+    
+    .history-action-button.delete:hover {
+      background: #ff4444;
+      color: white;
+      border-color: #ff4444;
+    }
+    
+    .full-history-view {
+      display: none;
+      margin-top: 12px;
+    }
+    
+    .full-history-view.show {
+      display: block;
+    }
+    
+    .history-controls {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    
+    .history-search {
+      flex: 1;
+      padding: 6px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 12px;
+    }
+    
+    .history-search:focus {
+      outline: none;
+      border-color: var(--button-primary-bg);
+    }
+    
+    .history-clear-button {
+      padding: 6px 12px;
+      background: var(--error-bg);
+      color: var(--error-text);
+      border: 1px solid var(--error-border);
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .history-clear-button:hover {
+      background: var(--error-border);
+      color: white;
+    }
+    
+    .history-list {
+      max-height: 300px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    
+    .history-empty {
+      text-align: center;
+      color: var(--text-secondary);
+      padding: 20px;
+      font-size: 12px;
+    }
+    
+    .settings-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      z-index: 1000;
+      overflow-y: auto;
+      padding: 10px;
+    }
+    
+    .settings-modal.show {
+      display: flex;
+    }
+    
+    .settings-modal-content {
+      background: var(--bg-primary);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 300px;
+      max-height: calc(100vh - 20px);
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      margin-top: 10px;
+      position: relative;
+    }
+    
+    .settings-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+    
+    .settings-modal-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    
+    .settings-close-button {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    
+    .settings-close-button:hover {
+      background: var(--button-secondary-hover);
+      color: var(--text-primary);
+    }
+    
+    .settings-modal-body {
+      padding: 14px;
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
+      max-height: calc(100vh - 100px);
+    }
+    
+    .settings-modal-body::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .settings-modal-body::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+      border-radius: 3px;
+    }
+    
+    .settings-modal-body::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 3px;
+    }
+    
+    .settings-modal-body::-webkit-scrollbar-thumb:hover {
+      background: var(--text-secondary);
+    }
+    
+    .settings-options {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    
+    .settings-options .format-option {
+      padding: 8px 10px;
+      margin-bottom: 0;
+      transition: background-color 0.2s ease;
+      border-radius: 6px;
+    }
+    
+    .settings-options .format-option:hover {
+      background: var(--button-secondary-hover);
+    }
+    
+    .privacy-notice {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 12px;
+      margin-top: 8px;
+      display: none;
+    }
+    
+    .privacy-notice.show {
+      display: block;
+    }
+    
+    .privacy-notice-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    
+    .privacy-notice-text {
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    
+    .privacy-notice-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    /* Ensure the popup grows tall enough when the settings modal is open.
+       Chrome extension popups auto-size to flow content only; fixed overlays
+       don't affect height, which can make the modal appear clipped. */
+    body.modal-open {
+      min-height: 580px; /* within Chrome's popup height limit */
+    }
+    
+    /* AI Summary Badge */
+    .history-entry-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+    
+    .ai-summary-badge {
+      background: var(--button-primary-bg);
+      color: white;
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 5px;
+      border-radius: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    
+    .history-action-button.ai-summary-btn {
+      background: var(--button-primary-bg);
+      border: none;
+    }
+    
+    .history-action-button.ai-summary-btn:hover {
+      background: var(--button-primary-hover);
+    }
+    
+    /* Summary Modal */
+    .summary-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 16px;
+    }
+    
+    .summary-modal {
+      background: var(--bg-primary);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 320px;
+      max-height: calc(100vh - 32px);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    .summary-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+    
+    .summary-modal-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+
+    
+    .summary-modal-close {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 4px;
+      font-size: 20px;
+      line-height: 1;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+    
+    .summary-modal-close:hover {
+      background: var(--button-secondary-hover);
+      color: var(--text-primary);
+    }
+    
+    .summary-modal-content {
+      padding: 16px;
+      overflow-y: auto;
+      flex: 1;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-primary);
+    }
+    
+    .summary-modal-content p {
+      margin: 0 0 12px 0;
+    }
+    
+    .summary-modal-content p:last-child {
+      margin-bottom: 0;
+    }
+    
+    .summary-modal-content ul {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+    
+    .summary-modal-content li {
+      margin-bottom: 6px;
+    }
+    
+    .summary-modal-content h2, 
+    .summary-modal-content h3, 
+    .summary-modal-content h4 {
+      margin: 16px 0 8px 0;
+      color: var(--text-primary);
+    }
+    
+    .summary-modal-content h2 { font-size: 15px; }
+    .summary-modal-content h3 { font-size: 14px; }
+    .summary-modal-content h4 { font-size: 13px; }
+    
+    .summary-modal-footer {
+      padding: 10px 16px;
+      border-top: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+    
+    .summary-meta {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="images/icon48.png" alt="Copy Youtube Transcript">
+      <h1>Copy Youtube Transcript</h1>
+      <button id="settingsButton" class="settings-button" title="Settings">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M16.1667 12.5C16.0557 12.7513 16.0227 13.0302 16.0717 13.3005C16.1207 13.5708 16.2496 13.8203 16.4417 14.0167L16.4917 14.0667C16.6466 14.2215 16.7695 14.4053 16.8534 14.6076C16.9373 14.8099 16.9805 15.0268 16.9805 15.2458C16.9805 15.4649 16.9373 15.6817 16.8534 15.8841C16.7695 16.0864 16.6466 16.2702 16.4917 16.425C16.3368 16.5799 16.153 16.7028 15.9507 16.7867C15.7484 16.8706 15.5315 16.9138 15.3125 16.9138C15.0935 16.9138 14.8766 16.8706 14.6743 16.7867C14.472 16.7028 14.2882 16.5799 14.1333 16.425L14.0833 16.375C13.887 16.1829 13.6374 16.054 13.3671 16.005C13.0969 15.956 12.818 15.989 12.5667 16.1C12.3202 16.2056 12.1079 16.3811 11.9549 16.6069C11.8019 16.8328 11.7145 17.0997 11.7033 17.375V17.5C11.7033 17.942 11.5271 18.3659 11.2146 18.6785C10.902 18.991 10.4781 19.1667 10.0361 19.1667C9.59412 19.1667 9.17019 18.991 8.85763 18.6785C8.54507 18.3659 8.36889 17.942 8.36889 17.5V17.4333C8.35668 17.1492 8.26497 16.8738 8.10351 16.6384C7.94205 16.4029 7.71704 16.2167 7.45333 16.1C7.20198 15.989 6.92312 15.956 6.65286 16.005C6.38259 16.054 6.13296 16.1829 5.93667 16.375L5.88667 16.425C5.73183 16.5799 5.54802 16.7028 5.34571 16.7867C5.14339 16.8706 4.92652 16.9138 4.7075 16.9138C4.48848 16.9138 4.27161 16.8706 4.06929 16.7867C3.86698 16.7028 3.68317 16.5799 3.52833 16.425C3.37344 16.2702 3.25054 16.0864 3.16661 15.8841C3.08269 15.6817 3.03952 15.4649 3.03952 15.2458C3.03952 15.0268 3.08269 14.8099 3.16661 14.6076C3.25054 14.4053 3.37344 14.2215 3.52833 14.0667L3.57833 14.0167C3.77039 13.8203 3.89933 13.5708 3.94835 13.3005C3.99737 13.0302 3.96432 12.7513 3.85333 12.5C3.74773 12.2535 3.57221 12.0412 3.34637 11.8882C3.12052 11.7352 2.85361 11.6478 2.57833 11.6367H2.45333C2.01131 11.6367 1.58738 11.4605 1.27482 11.1479C0.962262 10.8354 0.786083 10.4114 0.786083 9.96944C0.786083 9.52742 0.962262 9.10349 1.27482 8.79093C1.58738 8.47837 2.01131 8.30219 2.45333 8.30219H2.52C2.80414 8.28998 3.07958 8.19827 3.31505 8.03681C3.55052 7.87535 3.73667 7.65034 3.85333 7.38667C3.96432 7.13532 3.99737 6.85645 3.94835 6.58619C3.89933 6.31592 3.77039 6.06629 3.57833 5.87L3.52833 5.82C3.37344 5.66516 3.25054 5.48135 3.16661 5.27903C3.08269 5.07672 3.03952 4.85985 3.03952 4.64083C3.03952 4.42181 3.08269 4.20494 3.16661 4.00263C3.25054 3.80031 3.37344 3.6165 3.52833 3.46167C3.68317 3.30678 3.86698 3.18388 4.06929 3.09995C4.27161 3.01603 4.48848 2.97286 4.7075 2.97286C4.92652 2.97286 5.14339 3.01603 5.34571 3.09995C5.54802 3.18388 5.73183 3.30678 5.88667 3.46167L5.93667 3.51167C6.13296 3.70373 6.38259 3.83266 6.65286 3.88168C6.92312 3.93071 7.20198 3.89765 7.45333 3.78667H7.53333C7.77983 3.68106 7.99209 3.50554 8.14507 3.2797C8.29804 3.05386 8.38552 2.78694 8.39667 2.51167V2.38667C8.39667 1.94464 8.57285 1.52071 8.88541 1.20815C9.19797 0.895595 9.6219 0.719417 10.0639 0.719417C10.5059 0.719417 10.9298 0.895595 11.2424 1.20815C11.555 1.52071 11.7311 1.94464 11.7311 2.38667V2.45333C11.7423 2.72861 11.8298 2.99552 11.9827 3.22137C12.1357 3.44721 12.348 3.62273 12.5945 3.72833C12.8458 3.83932 13.1247 3.87237 13.395 3.82335C13.6652 3.77433 13.9149 3.64539 14.1111 3.45333L14.1611 3.40333C14.316 3.24844 14.4998 3.12554 14.7021 3.04162C14.9044 2.95769 15.1213 2.91452 15.3403 2.91452C15.5593 2.91452 15.7762 2.95769 15.9785 3.04162C16.1808 3.12554 16.3646 3.24844 16.5195 3.40333C16.6744 3.55817 16.7973 3.74198 16.8812 3.9443C16.9651 4.14661 17.0083 4.36348 17.0083 4.5825C17.0083 4.80152 16.9651 5.01839 16.8812 5.22071C16.7973 5.42302 16.6744 5.60683 16.5195 5.76167L16.4695 5.81167C16.2774 6.00796 16.1485 6.25759 16.0995 6.52785C16.0504 6.79812 16.0835 7.07698 16.1945 7.32833V7.40833C16.3001 7.65483 16.4756 7.86709 16.7014 8.02007C16.9273 8.17304 17.1942 8.26052 17.4695 8.27167H17.5945C18.0365 8.27167 18.4604 8.44785 18.773 8.76041C19.0855 9.07297 19.2617 9.4969 19.2617 9.93892C19.2617 10.3809 19.0855 10.8049 18.773 11.1174C18.4604 11.43 18.0365 11.6062 17.5945 11.6062H17.5278C17.2526 11.6173 16.9856 11.7048 16.7598 11.8578C16.534 12.0107 16.3584 12.223 16.2528 12.4695V12.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="button-group">
+      <button id="copyButton" class="button primary" title="Ctrl+Shift+Y to copy from any YouTube page">
+        <span data-i18n="copyToClipboard">Copy to Clipboard</span>
+        <div class="spinner"></div>
+      </button>
+      <button id="downloadButton" class="button secondary">
+        <span data-i18n="export">Export</span>
+        <div class="spinner"></div>
+      </button>
+    </div>
+    <button id="aiChatButton" class="button ai-chat-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z"/>
+      </svg>
+      <span data-i18n="aiSummary">AI Summary</span>
+    </button>
+    
+    
+    <!-- Preset Selector Section (shown when user has saved presets) -->
+    <div id="presetSection" class="preset-section">
+      <div class="preset-selector">
+        <label class="preset-label" data-i18n="preset">Preset</label>
+        <div class="preset-dropdown-wrapper">
+          <button id="presetDropdownButton" class="preset-dropdown-button">
+            <span id="presetDropdownText" data-i18n="currentSettings">Current Settings</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+              <path d="M6 8L2 4h8z"/>
+            </svg>
+          </button>
+          <div id="presetDropdownMenu" class="preset-dropdown-menu">
+            <div class="preset-option" data-value="" data-i18n="currentSettings">Current Settings</div>
+            <!-- Preset options will be dynamically added here -->
+          </div>
+        </div>
+        <button id="managePresetsButton" class="preset-manage-button" title="Manage Presets" data-i18n="manage">Manage</button>
+      </div>
+    </div>
+
+    <div id="exportOptions" class="export-options" style="display: none;">
+      <div class="export-title" data-i18n="exportFormat">Export Format:</div>
+      <div class="export-buttons">
+        <button id="exportTxt" class="export-button">
+          <span>Text</span>
+        </button>
+        <button id="exportPdf" class="export-button pro">
+          <span>PDF</span>
+          <span class="pro-badge">PRO</span>
+        </button>
+        <button id="exportMd" class="export-button pro">
+          <span>Markdown</span>
+          <span class="pro-badge">PRO</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="status" class="status">
+      <span class="status-message"></span>
+      <button id="retryButton" class="retry-button">Retry</button>
+    </div>
+
+    <div id="previewSection" class="preview-section">
+      <h2 class="preview-title" data-i18n="livePreview">Live Preview</h2>
+      <textarea id="previewArea" class="preview-area" readonly></textarea>
+    </div>
+
+    <div class="format-section">
+      <button id="formatButton" class="format-header">
+        <h2 class="format-title" data-i18n="outputFormat">Output Format</h2>
+        <svg class="format-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div id="formatDropdown" class="format-dropdown">
+        <div class="format-option">
+          <input type="checkbox" id="showTimestamps" class="native-checkbox">
+          <label for="showTimestamps" class="checkbox-label">
+            <span class="checkbox"></span>
+            <span data-i18n="showTimestamps">Show timestamps</span>
+          </label>
+        </div>
+        <div class="format-option">
+          <input type="checkbox" id="showTitle" class="native-checkbox">
+          <label for="showTitle" class="checkbox-label">
+            <span class="checkbox"></span>
+            <span data-i18n="showTitle">Show Title</span>
+          </label>
+        </div>
+        <div class="format-option">
+          <input type="checkbox" id="showUrl" class="native-checkbox">
+          <label for="showUrl" class="checkbox-label">
+            <span class="checkbox"></span>
+            <span data-i18n="showUrl">Show URL</span>
+          </label>
+        </div>
+        <div class="format-option">
+          <input type="checkbox" id="addSpacing" class="native-checkbox">
+          <label for="addSpacing" class="checkbox-label">
+            <span class="checkbox"></span>
+            <span data-i18n="addSpacing">Add spacing between lines</span>
+          </label>
+        </div>
+        <div class="format-option">
+          <input type="checkbox" id="paragraphStyle" class="native-checkbox">
+          <label for="paragraphStyle" class="checkbox-label">
+            <span class="checkbox"></span>
+            <span data-i18n="paragraphStyle">Paragraph style (single block)</span>
+          </label>
+        </div>
+        <div class="format-option">
+          <input type="checkbox" id="addPrompt" class="native-checkbox">
+          <label for="addPrompt" class="checkbox-label">
+            <span class="checkbox"></span>
+            <span data-i18n="addAiPrompt">Add AI Summary Prompt</span>
+          </label>
+          <button id="editPrompt" class="prompt-edit-button" data-i18n="edit">Edit</button>
+        </div>
+
+        <div id="promptSection" class="prompt-section">
+          <textarea id="customPrompt" class="prompt-textarea" spellcheck="false">Summarize the following transcript in a clear and concise way. Capture all the key insights, arguments, and takeaways while removing filler. Break the summary into well-structured bullet points or sections by theme/topic. The goal is to help me understand everything important without reading the whole transcript. Think like a researcher or note-taker summarizing for someone smart but busy. Keep the summary accurate, complete, and easy to scan.</textarea>
+          <div class="prompt-actions">
+            <button id="resetPrompt" class="prompt-reset">Reset to default</button>
+          </div>
+        </div>
+        
+        <button id="savePresetButton" class="save-preset-button">
+          <span data-i18n="saveCurrentAsPreset">Save Current as Preset</span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- History Section -->
+    <div id="historySection" class="history-section">
+      <div class="empty-state" id="historyEmptyState">
+        <div class="empty-state-icon">&#128203;</div>
+        <div class="empty-state-title">No History Yet</div>
+        <div class="empty-state-text">Copy a transcript to see it here. Your history is stored locally on this device.</div>
+      </div>
+      <div class="history-content">
+        <div class="history-header">
+          <span class="history-title" data-i18n="mostRecentTranscript">Most Recent Transcript</span>
+          <button id="viewAllHistory" class="history-view-all" data-i18n="viewAll">View All</button>
+        </div>
+        <div id="recentHistoryList" class="recent-history-list">
+          <!-- Recent history entries will be added here dynamically -->
+        </div>
+        <div id="fullHistoryView" class="full-history-view">
+          <div class="history-controls">
+            <input type="text" id="historySearch" class="history-search" data-i18n-placeholder="searchHistory" placeholder="Search history...">
+            <button id="clearHistory" class="history-clear-button" data-i18n="clearAll">Clear All</button>
+          </div>
+          <div id="historyList" class="history-list">
+            <!-- Full history entries will be added here -->
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="feedbackLink" class="feedback-link">Report an issue / Suggest a feature</div>
+  </div>
+
+  <div id="feedbackOverlay" class="feedback-overlay">
+    <div class="feedback-form">
+      <h2>Share Feedback</h2>
+      <textarea id="feedbackText" class="feedback-textarea" placeholder="Describe the bug or your idea..."></textarea>
+      <div class="feedback-actions">
+        <button id="cancelFeedback" class="button secondary">Cancel</button>
+        <button id="sendFeedback" class="button primary">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="settingsSaved" class="settings-saved" data-i18n="settingsSaved">Settings saved</div>
+  
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="settings-modal">
+    <div class="settings-modal-content">
+      <div class="settings-modal-header">
+        <h2 class="settings-modal-title" data-i18n="settings">Settings</h2>
+        <button id="closeSettings" class="settings-close-button">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="settings-modal-body">
+        <div class="settings-options">
+          <div class="format-option">
+            <input type="checkbox" id="settingsShowDownloadButton" class="native-checkbox">
+            <label for="settingsShowDownloadButton" class="checkbox-label">
+              <span class="checkbox"></span>
+              <span data-i18n="showExportButton">Show Export button</span>
+            </label>
+          </div>
+          <div class="format-option">
+            <input type="checkbox" id="settingsShowLivePreview" class="native-checkbox">
+            <label for="settingsShowLivePreview" class="checkbox-label">
+              <span class="checkbox"></span>
+              <span data-i18n="showLivePreview">Show Live Preview</span>
+            </label>
+          </div>
+          <div class="format-option">
+            <input type="checkbox" id="settingsShowInPageButton" class="native-checkbox">
+            <label for="settingsShowInPageButton" class="checkbox-label">
+              <span class="checkbox"></span>
+              <span data-i18n="showInPageCopyButton">Show in-page Copy Transcript button</span>
+            </label>
+          </div>
+          <div class="format-option">
+            <input type="checkbox" id="settingsShowInPageAISummaryButton" class="native-checkbox">
+            <label for="settingsShowInPageAISummaryButton" class="checkbox-label">
+              <span class="checkbox"></span>
+              <span data-i18n="showInPageAiButton">Show in-page AI Summary button</span>
+            </label>
+          </div>
+          <div class="format-option">
+            <input type="checkbox" id="settingsTrackHistory" class="native-checkbox">
+            <label for="settingsTrackHistory" class="checkbox-label">
+              <span class="checkbox"></span>
+              <span data-i18n="trackHistory">Track Transcript History</span>
+            </label>
+          </div>
+          <div class="format-option">
+            <input type="checkbox" id="settingsLlmIntegration" class="native-checkbox">
+            <label for="settingsLlmIntegration" class="checkbox-label">
+              <span class="checkbox"></span>
+              <span data-i18n="autoOpenAi">Auto-open AI Platforms</span>
+            </label>
+          </div>
+          <div class="format-option" id="settingsLlmProviderOption" style="display: none; margin-left: 24px;">
+            <label for="settingsLlmProvider" style="font-size: 13px; color: var(--text-secondary);" data-i18n="platform">Platform:</label>
+            <select id="settingsLlmProvider" style="margin-left: 8px; padding: 4px 8px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-primary); color: var(--text-primary); font-size: 13px;">
+              <option value="chatgpt">ChatGPT</option>
+              <option value="claude">Claude</option>
+              <option value="gemini">Gemini</option>
+              <option value="perplexity">Perplexity</option>
+              <option value="custom">Custom URL...</option>
+            </select>
+          </div>
+          <div class="format-option" id="settingsLlmCustomUrlOption" style="display: none; margin-left: 24px;">
+            <input type="text" id="settingsLlmCustomUrl" placeholder="https://your-ai-platform.com/" style="width: 100%; padding: 6px 8px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-primary); color: var(--text-primary); font-size: 12px; box-sizing: border-box;">
+            <div style="font-size: 10px; color: var(--text-secondary); margin-top: 4px;">Use {transcript} as placeholder for the transcript text</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Save Preset Dialog -->
+  <div id="savePresetDialog" class="save-preset-dialog">
+    <div class="dialog-content">
+      <h2 class="dialog-title" data-i18n="savePreset">Save Preset</h2>
+      <input type="text" id="presetNameInput" class="preset-name-input" data-i18n-placeholder="enterPresetName" placeholder="Enter preset name..." maxlength="30">
+      <div id="charCount" class="char-count">0 / 30</div>
+      <div class="dialog-actions">
+        <button id="cancelSavePreset" class="dialog-button cancel" data-i18n="cancel">Cancel</button>
+        <button id="confirmSavePreset" class="dialog-button save" data-i18n="save">Save</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Manage Presets Modal -->
+  <div id="managePresetsModal" class="manage-presets-modal">
+    <div class="dialog-content">
+      <h2 class="dialog-title" data-i18n="managePresets">Manage Presets</h2>
+      <div id="presetList" class="preset-list">
+        <!-- Presets will be dynamically added here -->
+      </div>
+      <div class="dialog-actions">
+        <button id="closeManagePresets" class="dialog-button cancel" data-i18n="close">Close</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="pro-features.js"></script>
+  <script src="shared/i18n.js"></script>
+  <script src="shared/formatting.js"></script>
+  <script src="shared/upgrade.js"></script>
+  <!-- jspdf.min.js is lazy-loaded only when PDF export is used -->
+  <script src="popup/utils.js"></script>
+  <script src="popup/settings.js"></script>
+  <script src="popup/presets.js"></script>
+  <script src="popup/history.js"></script>
+  <script src="popup/export.js"></script>
+  <script src="popup/popup.js"></script>
+</body>
+</html> 

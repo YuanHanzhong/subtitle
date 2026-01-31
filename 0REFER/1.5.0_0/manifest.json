@@ -1,0 +1,38 @@
+{
+   "action": {
+      "default_icon": {
+         "128": "images/icon128.png",
+         "16": "images/icon16.png",
+         "32": "images/icon32.png",
+         "48": "images/icon48.png"
+      },
+      "default_popup": "popup.html",
+      "default_title": "__MSG_copyTranscript__"
+   },
+   "background": {
+      "service_worker": "background.js"
+   },
+   "content_scripts": [ {
+      "js": [ "shared/formatting.js", "content.js" ],
+      "matches": [ "https://www.youtube.com/watch*", "https://www.youtube.com/shorts*", "*://*.youtube.com/*" ],
+      "run_at": "document_idle"
+   } ],
+   "default_locale": "en",
+   "description": "__MSG_extensionDescription__",
+   "host_permissions": [ "https://www.youtube.com/*" ],
+   "icons": {
+      "128": "images/icon128.png",
+      "16": "images/icon16.png",
+      "32": "images/icon32.png",
+      "48": "images/icon48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2m0QF2ots+JvVNOhg3UsXGnk7PwFORStbAAN6J5kSWi2iiTlc7ty9wdje+5la1eAcU4pI/M1SuZ02GAyjuGbFP/Rw+MnpQa3s4tHV17EGm4b//7ZUgNqgkH0LhxGgVYwtbZqzNf5wC2py8yeh1w5+kPOhcEckmQbASy9Mmjz0nHdUIYbZ9Cctm9H2iXMQFf+mLvWd/VQsIYdthp+UDtqkzaRzSUNnjntmchZ4OeKQa8iTEciytRKAmQJfltXLoRotp41d+y2l/Ikex0eg1MfoE/ultN/1QwcrPTFzHKuqdzG22bQv+AwO9p7z3OwPeVJ5Eby2XIfXdiEjP0Ftn3QEQIDAQAB",
+   "manifest_version": 3,
+   "name": "__MSG_extensionName__",
+   "permissions": [ "activeTab", "scripting", "storage", "sidePanel", "alarms" ],
+   "side_panel": {
+      "default_path": "sidepanel/sidepanel.html"
+   },
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.5.0"
+}
