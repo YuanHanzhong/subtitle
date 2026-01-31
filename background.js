@@ -43,8 +43,14 @@ function triggerExtraction(tab, source) {
   // 检查是否为 YouTube 页面
   if (!tab.url || (!tab.url.includes("youtube.com/watch") && !tab.url.includes("youtube.com/shorts"))) {
     console.warn("不是 YouTube 视频页面");
-    // 显示页面提示（与成功提示样式一致，红色背景）
-    showPageToast(tab.id, "请在 YouTube 视频页面使用此插件", "error");
+    // 显示系统通知
+    chrome.notifications.create("not-youtube", {
+      type: "basic",
+      iconUrl: "icons/icon128.png",
+      title: "YouTube 字幕提取器",
+      message: "请在 YouTube 视频页面使用此插件",
+      priority: 2
+    });
     return;
   }
 
@@ -57,95 +63,6 @@ function triggerExtraction(tab, source) {
     // 可能 content script 未加载，尝试注入
     injectContentScript(tab.id, source);
   });
-}
-
-/**
- * 在页面上显示 Toast 提示（与成功提示样式一致）
- * @param {number} tabId - 标签页 ID
- * @param {string} message - 提示信息
- * @param {string} type - 类型 (success/error)
- */
-async function showPageToast(tabId, message, type = "error") {
-  try {
-    await chrome.scripting.executeScript({
-      target: { tabId: tabId },
-      func: (msg, msgType) => {
-        // 移除已有的 toast
-        const existingToast = document.querySelector("#yt-subtitle-toast");
-        if (existingToast) {
-          existingToast.remove();
-        }
-
-        // 根据类型设置样式（与 content.js 中的 showToast 保持一致）
-        const isError = msgType === "error";
-        const bgColor = isError ? "#d32f2f" : "#4CAF50";
-        const icon = isError ? "✗" : "✓";
-        const title = isError ? "提示" : "提取成功";
-
-        const toast = document.createElement("div");
-        toast.id = "yt-subtitle-toast";
-        toast.innerHTML = `
-          <div style="display: flex; align-items: flex-start; gap: 12px;">
-            <span style="font-size: 20px; line-height: 1;">${icon}</span>
-            <div>
-              <div style="font-weight: bold; margin-bottom: 4px;">${title}</div>
-              <div style="opacity: 0.95;">${msg}</div>
-            </div>
-          </div>
-        `;
-        toast.style.cssText = `
-          position: fixed;
-          top: 20px;
-          right: 20px;
-          padding: 16px 20px;
-          background: ${bgColor};
-          color: white;
-          border-radius: 8px;
-          font-size: 14px;
-          font-family: Arial, sans-serif;
-          z-index: 999999;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-          animation: ytSubtitleSlideIn 0.3s ease;
-          max-width: 350px;
-          line-height: 1.4;
-        `;
-
-        // 添加动画样式
-        if (!document.querySelector("#yt-subtitle-toast-style")) {
-          const style = document.createElement("style");
-          style.id = "yt-subtitle-toast-style";
-          style.textContent = \`
-            @keyframes ytSubtitleSlideIn {
-              from { transform: translateX(100%); opacity: 0; }
-              to { transform: translateX(0); opacity: 1; }
-            }
-          \`;
-          document.head.appendChild(style);
-        }
-
-        document.body.appendChild(toast);
-
-        // 错误提示显示更长时间
-        const duration = isError ? 5000 : 3000;
-
-        setTimeout(() => {
-          toast.style.animation = "ytSubtitleSlideIn 0.3s ease reverse";
-          setTimeout(() => toast.remove(), 300);
-        }, duration);
-      },
-      args: [message, type]
-    });
-  } catch (error) {
-    console.error("显示页面提示失败，尝试系统通知:", error);
-    // 降级为系统通知
-    chrome.notifications.create({
-      type: "basic",
-      iconUrl: "icons/icon128.png",
-      title: "YouTube 字幕提取器",
-      message: message,
-      priority: 2
-    });
-  }
 }
 
 // ==================== 消息处理 ====================
